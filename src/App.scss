@@ -1,0 +1,27 @@
+body {
+  font-family: 'Orbitron', sans-serif;
+  background-color: #001f3f;
+}
+
+
+
+.calculator {
+  width: 300px;
+
+  input {
+  height: 50px;
+  width: 300px;
+  font-size: 30px;
+  font-family: 'Orbitron', sans-serif;
+  border-color: black;
+}
+button {
+  width: 100%;
+  height: 50px;
+  background-color: #111111;
+  color: white;
+}
+button:hover{
+  background-color: black;
+}
+}

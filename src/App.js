@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 
 class App extends React.Component {
   constructor() {
@@ -14,6 +14,7 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.calculate = this.calculate.bind(this)
     this.isOperator = this.isOperator.bind(this)
+    this.insert = this.insert.bind(this)
   }
 
   handleChange(e) {
@@ -22,6 +23,9 @@ class App extends React.Component {
     })
   }
 
+  insert() {
+    
+  }
   isValidExpression(expression) {
     let isValid = true
     let currentValue = 'number'
@@ -70,18 +74,21 @@ class App extends React.Component {
         let index = expression.indexOf(sign)
         let exp = [expression[index - 1], sign, expression[index + 1]]
         let v = this.doMaths(exp)
-        // console.log(v)
         expression.splice(index - 1, 3, v)
-        console.log(expression)
+        // console.log(expression)
         hasSign = expression.includes(sign)
       }
     }
+    console.log(expression)
+    let screen = document.getElementById('result')
+    screen.value = expression[0]
   }
 
   doMaths(e) {
     let firstNum = parseInt(e[0])
     let secondNum = parseInt(e[2])
-    switch (e[1]) {
+    let sign = e[1]
+    switch (sign) {
       case '*': return firstNum * secondNum
       case '+': return firstNum + secondNum
       case '-': return firstNum - secondNum
@@ -128,7 +135,38 @@ class App extends React.Component {
 render() {
     return (
       <div className="App">
-        <input type='text' onChange={this.handleChange} />
+        <div className='calculator mx-auto'>
+          <div>
+            <input type='text' onChange={this.handleChange} id='result'/>
+          </div>
+          <div className='d-flex'>
+            <div className='flex-grow-1'><button>Clear</button></div>
+            <div className='flex-grow-1'><button>+</button></div>
+          </div>
+          <div className='d-flex'> 
+            <button onClick={this.insert('1')}>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>-</button>
+          </div>
+          <div className='d-flex'>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button>*</button>
+          </div>
+          <div className='d-flex'>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button>/</button>
+          </div>
+          <div className='d-flex'>
+            <button>0</button>
+            <button>.</button>
+            <button onClick={this.calculate}>=</button>
+          </div>
+        </div>
         <button onClick={this.calculate}>Calculate</button>
       </div>
     )
