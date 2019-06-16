@@ -7,6 +7,9 @@ body {
 
 .calculator {
   width: 300px;
+  position: relative;
+  margin-top: 100px !important;
+  // top: calc(50% - 150px) !important;
 
   input {
   height: 50px;

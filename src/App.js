@@ -145,7 +145,7 @@ class App extends React.Component {
 render() {
     return (
       <div className="App">
-        <div className='calculator mx-auto'>
+        <div className='calculator mx-auto mt-4'>
           <div>
             <input type='text' onChange={this.handleChange} id='result'/>
           </div>
@@ -177,7 +177,6 @@ render() {
             <button onClick={this.calculate}>=</button>
           </div>
         </div>
-        <button onClick={this.calculate}>Calculate</button>
       </div>
     )
   }
