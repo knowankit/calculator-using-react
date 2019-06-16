@@ -23,8 +23,14 @@ class App extends React.Component {
     })
   }
 
-  insert() {
-    
+  insert(val = '') {
+    let screen = document.getElementById('result')
+    let screenArray = screen.value.split('')
+    if(screenArray[screenArray.length - 1] === val) {
+      return
+    }
+    if (!(val === '')) screen.value = screen.value + val
+    else screen.value = val
   }
   isValidExpression(expression) {
     let isValid = true
@@ -102,8 +108,12 @@ class App extends React.Component {
   }
 
   calculate() {
-    const expressionArray = this.state.expression.split('')
-  
+    // let expressionArray = this.state.expression.split('')
+
+    let expressionArray = document.getElementById('result').value
+    expressionArray = expressionArray.split('')
+    
+  console.log(expressionArray)
     if (this.isValidExpression(expressionArray)) {
       const mergedArray = []
       let nums = ''
@@ -140,29 +150,29 @@ render() {
             <input type='text' onChange={this.handleChange} id='result'/>
           </div>
           <div className='d-flex'>
-            <div className='flex-grow-1'><button>Clear</button></div>
-            <div className='flex-grow-1'><button>+</button></div>
+            <button className='flex-grow-1' onClick={() => this.insert()}>Clear</button>
+            <button className='flex-grow-1' onClick={() => this.insert('+')}>+</button>
           </div>
           <div className='d-flex'> 
-            <button onClick={this.insert('1')}>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>-</button>
+            <button onClick={() => this.insert('1')}>1</button>
+            <button onClick={() => this.insert('2')}>2</button>
+            <button onClick={() => this.insert('3')}>3</button>
+            <button onClick={() => this.insert('-')}>-</button>
           </div>
           <div className='d-flex'>
-            <button>4</button>
-            <button>5</button>
-            <button>6</button>
-            <button>*</button>
+            <button onClick={() => this.insert('4')}>4</button>
+            <button onClick={() => this.insert('5')}>5</button>
+            <button onClick={() => this.insert('6')}>6</button>
+            <button onClick={() => this.insert('*')}>*</button>
           </div>
           <div className='d-flex'>
-            <button>7</button>
-            <button>8</button>
-            <button>9</button>
-            <button>/</button>
+            <button onClick={() => this.insert('7')}>7</button>
+            <button onClick={() => this.insert('8')}>8</button>
+            <button onClick={() => this.insert('9')}>9</button>
+            <button onClick={() => this.insert('/')}>/</button>
           </div>
           <div className='d-flex'>
-            <button>0</button>
+            <button onClick={() => this.insert('0')}>0</button>
             <button>.</button>
             <button onClick={this.calculate}>=</button>
           </div>
