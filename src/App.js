@@ -59,36 +59,23 @@ class App extends React.Component {
   }
 
   evaluate (expression) {
-    // BDMAS rule
+    // BDMAS rule ['/', '*', '+', '-', '%']
 
-    // Multiplication
-    let hasMul = expression.includes('*')
-    
-    while(hasMul) {
-      let index = expression.indexOf('*')
-      let exp = [expression[index - 1], '*', expression[index + 1]]
-      let v = this.doMaths(exp)
-      console.log(v)
-      expression.splice(index - 1, 3, v)
-      // expression.unshift(v)
-      console.log(expression)
-      hasMul = expression.includes('*')
-      }
-    debugger
-
-      // Addition
-      let hasAdd = expression.includes('+')
-      while (hasAdd) {
-      let index = expression.indexOf('+')
-      let exp = [expression[index - 1], '+', expression[index + 1]]
+    let hasSign = null
+    for (let index = 0; index < this.operators.length; index++) {
+      let operatorIndex = index
+      hasSign = expression.includes(this.operators[index])
+      while (hasSign) {
+        let sign = this.operators[operatorIndex]
+        let index = expression.indexOf(sign)
+        let exp = [expression[index - 1], sign, expression[index + 1]]
         let v = this.doMaths(exp)
-      console.log(v)
-      expression.splice(index - 1, 3, v)
-      // expression.unshift(v)
-      console.log(expression)
-      hasAdd = expression.includes('+')
+        // console.log(v)
+        expression.splice(index - 1, 3, v)
+        console.log(expression)
+        hasSign = expression.includes(sign)
+      }
     }
-    
   }
 
   doMaths(e) {
@@ -109,12 +96,15 @@ class App extends React.Component {
 
   calculate() {
     const expressionArray = this.state.expression.split('')
+  
     if (this.isValidExpression(expressionArray)) {
       const mergedArray = []
       let nums = ''
+
       expressionArray.forEach(value => {
         let numValue = parseInt(value)
         let isNum = this.numbers.includes(numValue)
+
         if (isNum) {
           nums = nums + numValue
           let lastInsertedNumber = parseInt(mergedArray[mergedArray.length - 1])
@@ -125,6 +115,7 @@ class App extends React.Component {
           mergedArray.push(value)
         }
       })
+
       console.log(mergedArray)
       this.evaluate(mergedArray)
       console.log('Correct')
