@@ -4,7 +4,7 @@ import './App.css';
 class App extends React.Component {
   constructor() {
     super()
-    this.operators = ['+', '-', '*', '/', '%']
+    this.operators = ['/', '*', '+', '-', '%']
     this.numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     this.specialOperators = ['(', ')', '!']
     this.state = {
@@ -60,23 +60,50 @@ class App extends React.Component {
 
   evaluate (expression) {
     // BDMAS rule
+
+    // Multiplication
     let hasMul = expression.includes('*')
-      while(hasMul) {
-        let index = expression.indexOf('*')
-        let exp = [expression[index - 1], '*', expression[index + 1]]
-        let v = this.evaluateMultiplication(exp)
-        console.log(v)
-        expression.splice(index - 1, 3)
-        expression.push(v)
-        console.log(expression)
-        hasMul = expression.includes('*')
+    
+    while(hasMul) {
+      let index = expression.indexOf('*')
+      let exp = [expression[index - 1], '*', expression[index + 1]]
+      let v = this.doMaths(exp)
+      console.log(v)
+      expression.splice(index - 1, 3, v)
+      // expression.unshift(v)
+      console.log(expression)
+      hasMul = expression.includes('*')
       }
+    debugger
+
+      // Addition
+      let hasAdd = expression.includes('+')
+      while (hasAdd) {
+      let index = expression.indexOf('+')
+      let exp = [expression[index - 1], '+', expression[index + 1]]
+        let v = this.doMaths(exp)
+      console.log(v)
+      expression.splice(index - 1, 3, v)
+      // expression.unshift(v)
+      console.log(expression)
+      hasAdd = expression.includes('+')
+    }
     
   }
 
-  evaluateMultiplication(e) {
+  doMaths(e) {
     let firstNum = parseInt(e[0])
     let secondNum = parseInt(e[2])
+    switch (e[1]) {
+      case '*': return firstNum * secondNum
+      case '+': return firstNum + secondNum
+      case '-': return firstNum - secondNum
+      case '/': return firstNum / secondNum
+      case '%': return firstNum % secondNum
+    
+      default:
+        break;
+    }
     return firstNum * secondNum
   }
 
