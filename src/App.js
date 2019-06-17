@@ -26,9 +26,9 @@ class App extends React.Component {
   insert(val = '') {
     let screen = document.getElementById('result')
     let screenArray = screen.value.split('')
-    if(screenArray[screenArray.length - 1] === val) {
-      return
-    }
+//     if(screenArray[screenArray.length - 1] === val) {
+//       return
+//     }
     if (!(val === '')) screen.value = screen.value + val
     else screen.value = val
   }
